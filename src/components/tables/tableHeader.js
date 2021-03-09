@@ -6,7 +6,7 @@ export function TableHeader({columns}){
             <TableRow>
             { columns.map((column) => (
                 <TableCell
-                key={column.field}
+                key={column.key}
                 align={column.align}
                 style={{ minWidth: column.width }}
                 >
