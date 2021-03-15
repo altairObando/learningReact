@@ -23,24 +23,28 @@ export function ListContactos({data}) {
         setPage(0);
     };
     const _handleDetails = (props) => {
+      alert(`Detalles de:${props}`)
+    }
+    const _handlePrimary = (props) => {
       history.push(`Contactos/CreateOrUpdate/${props}`)
     }
     const buttonConfig = {      
         titleDefault   : 'Detalles',
         titlePrimary   : 'Editar',
         titleSecondary : 'Eliminar',
-        eventDefault   :  _handleDetails 
+        eventDefault   :  _handleDetails,
+        eventPrimary   :  _handlePrimary 
     }
     return (
-    <Paper>
-        <TableContainer>
+    <Paper >
+        <TableContainer style={{ height : '40em' }}>
           <Table stickyHeader aria-label="sticky table">
               <TableHeader  columns={columns} />
               <CTableBody columns={columns} rows={data} page={page} rowsPerPage={rowsPerPage} Acciones={ThreeActionsButtons} configAcciones={ buttonConfig }/>
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          rowsPerPageOptions={[10,25, 50, 100]}
           component="div"
           count={data.length}
           rowsPerPage={rowsPerPage}
