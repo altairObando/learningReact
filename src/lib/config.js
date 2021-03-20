@@ -2,9 +2,9 @@ import React from 'react';
 import { Contactos }  from '../components/contacto';
 import { CreateOrUpdate } from '../components/Contactos/createOrUpdate';
 
-import ContactMail from '@material-ui/icons/ContactMail';
+import Contacts from '@material-ui/icons/Contacts';
 import Home from '@material-ui/icons/Home'
-const baseUri = 'http://localhost:50099/Api/';
+const baseUri = 'http://reactapi.somee.com/Api/';
 
 function Index(){
     return(
@@ -30,7 +30,7 @@ export const Config = {
             exact : true, 
             text: 'Contactos', 
             component : Contactos,
-            icon: ContactMail,
+            icon: Contacts,
             isRoot: true,
         },
         { 
@@ -39,7 +39,7 @@ export const Config = {
             exact : false, 
             text: 'CrearContactos', 
             component : CreateOrUpdate,
-            icon: ContactMail,
+            icon: '',
             isRoot: false,
         },
     ]

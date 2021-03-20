@@ -18,9 +18,11 @@ export const ThreeActionsButtons =  (props) => {
   }
   return(
   <div>
-    <Button variant="contained" style={{ marginRight: '1em' }} onClick={ _handleDefault }>
-      { titleDefault || 'Default'} 
-    </Button>
+    { titleDefault ?
+        <Button variant="contained" style={{ marginRight: '1em' }} onClick={ _handleDefault }>
+          { titleDefault} 
+        </Button>    :<> </>
+    }
     <Button variant="contained" color="primary" style={{ marginRight: '1em' }} onClick={ _handlePrimary }>
       { titlePrimary || 'Primary'}
     </Button>

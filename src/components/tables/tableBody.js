@@ -3,9 +3,9 @@ import TableBody  from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-export function CTableBody (fullData ){
-    const { rows, columns, page, rowsPerPage} = fullData;
-    const { configAcciones } = fullData;
+export function CTableBody ( props ){
+    const { rows, columns, page, rowsPerPage} = props;
+    const { configAcciones } = props;
     return(
         <TableBody>
             { 
@@ -16,10 +16,11 @@ export function CTableBody (fullData ){
                       const value =  row[column.field];
                       return (
                         <TableCell key={column.key} align={column.align}>
-                            { column.isComponent && fullData.Acciones ? <fullData.Acciones id={value} configAcciones={ configAcciones }/> : value }
+                            { column.isComponent && props.Acciones ? <props.Acciones id={value} configAcciones={ configAcciones }/> : value }
                         </TableCell>
                       );
-                    })}
+                    })
+                    }
                   </TableRow>
                 );
             })

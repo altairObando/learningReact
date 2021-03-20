@@ -5,9 +5,10 @@ import { Enums } from '../../lib/enums';
 import { makeStyles } from '@material-ui/core';
 import { DefaultSelect } from '../util/defaultSelect'
 import { useHistory } from 'react-router-dom'
-import { Alert, AlertTitle } from '@material-ui/lab';
 import { Paper, TextField, Button } from '@material-ui/core'
 import { Save } from '@material-ui/icons'
+import showAlert from '../util/showAlert';
+
 const useStyles = makeStyles((theme) => ({
     input: { width: '20em', margin: theme.spacing(1)  },
     paper: { margin: '2em', padding:'2em', width:'75%', display:'flex', alignItems: 'center' },
@@ -15,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     button: { margin: theme.spacing(1)}, 
     alert : { padding: '2em', width: '45%', marginTop: '-15em', margin: theme.spacing(1) }
 }));
-
 
 export const CreateOrUpdate = (props) => {
     const { id } = useParams();    
@@ -32,12 +32,6 @@ export const CreateOrUpdate = (props) => {
         Telefono: '',
         Sexo:0
     });    
-    const [response, setResponse] = useState({
-        open: false,
-        success: false,
-        messages: '',
-        severity: 'success'
-    });
     useEffect(() => {
         if(id !== '0')
             fetch(`${Config.apiUrl}Contactos/${id}`)
@@ -70,12 +64,16 @@ export const CreateOrUpdate = (props) => {
                },
         }).then(response => response.json())
           .then(data => {
-
-              setResponse({
-                  ...response, success : data.success, messages: data.messages, open: true, severity: data.success ? 'success' : 'error'
-              });
               setContacto(data.created);
-              
+              showAlert('Contacto', 
+              id > 0 ? 'Se ha actualizado el contacto': 'Se ha registrado el nuevo contacto',
+              'success',
+              () => {
+                history.goBack();
+                },
+              );
+          }).catch(error =>{
+              showAlert('Error', error, 'error');
           });
     }
     
@@ -113,16 +111,7 @@ export const CreateOrUpdate = (props) => {
                     </Button>
                 </div>             
             </form>
-            <div className={ classes.alert }>
-                {
-                    response.open ? (
-                    <Alert variant="filled" severity={response.severity}>
-                        <AlertTitle>{response.success ? 'Tarea Completada': 'Error' }</AlertTitle>
-                        {response.messages}
-                    </Alert>
-                    ) : <span></span>
-                }
-            </div>
+            
         </Paper>
     )
 }
